@@ -1,1 +1,24 @@
-<p>input works!</p>
+<div class="form__textbox">
+        <label [for]="id">{{ label }}<span>*</span> </label>
+        <input [formControl]="control" [type]="inputType" [id]="id">    
+    </div>
+    <div class="error" *ngIf="showErrors()">
+        <p *ngIf="control.errors.required">
+            Feld darf nicht leer sein!
+        </p>
+        <p *ngIf="control.errors.minlength">
+            Es müssen mindesten {{control.errors.minlength.requiredLength}} Zeichen sein.
+        </p>
+        <p *ngIf="control.errors.maxlength">
+            Es dürfen nicht mehr als {{control.errors.maxlength.requiredLength}} Zeichen sein.
+        </p>
+        <p *ngIf="control.errors.pattern">
+            Es dürfen keine Sonderzeichen {{control.errors.pattern.actualValue}} sein.
+        </p>    
+        <p *ngIf="control.errors.nonUniqueUsername">
+            Username ist schon vergeben!
+        </p>
+        <p *ngIf="control.errors.noConnection">
+            Keine Internetverbindung.
+        </p>
+    </div>

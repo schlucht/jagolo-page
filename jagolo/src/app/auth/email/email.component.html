@@ -1,1 +1,20 @@
-<p>email works!</p>
+<div>
+    <h2>Email registrieren</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <app-input inputType="text" label="Vorname" id="firstname" [control]="registerForm.get('firstname')">
+        </app-input>
+        <app-input inputType="text" label="Nachname" id="lastname" [control]="registerForm.get('lastname')">
+        </app-input>
+        <app-input inputType="email" label="Email Adresse" id="emailname" [control]="registerForm.get('email')">
+        </app-input>
+        <app-input inputType="password" label="Passwort" id="password" [control]="registerForm.get('password')">
+        </app-input>
+        <app-input inputType="password" label="Kontrolle Passwort" id="passwordConfirm"
+            [control]="registerForm.get('passwordConfirm')">
+        </app-input>
+        <button>Submit</button>
+    </form>
+    <p>
+        {{ registerForm?.errors | json }}
+    </p>
+</div>

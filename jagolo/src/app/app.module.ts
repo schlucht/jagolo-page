@@ -5,28 +5,27 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule } from '@angular/fire';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
+import { AuthRoutingModule } from './auth/auth-routing.module';
+import { environment } from 'src/environments/environment';
+import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDoZyKDdSSPar5RPpJeKyV02DfBr-tN-hc",
-  authDomain: "jagolo-page.firebaseapp.com",
-  databaseURL: "https://jagolo-page.firebaseio.com",
-  projectId: "jagolo-page",
-  storageBucket: "jagolo-page.appspot.com",
-  messagingSenderId: "758085332382",
-  appId: "1:758085332382:web:b824960ec6773cb72a3a8f",
-  measurementId: "G-0D9FNCHZ4X"
-};
+
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
-    AngularFireModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AuthRoutingModule,
     AppRoutingModule,
     AuthModule,
     SharedModule
