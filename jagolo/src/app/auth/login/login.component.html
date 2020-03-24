@@ -1,1 +1,15 @@
-<p>login works!</p>
+<div>
+    <h2>Anmelden</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <app-input inputType="email" label="Email Adresse" id="emailname" [control]="loginForm.get('email')">
+        </app-input>
+        <app-input inputType="password" label="Passwort" id="password" [control]="loginForm.get('password')">
+        </app-input>
+        <button>Submit</button>
+    </form>
+    <p>
+        {{ loginForm?.errors | json }}
+        {{ loginForm?.value | json }}
+        {{ authError }}
+    </p>
+</div>

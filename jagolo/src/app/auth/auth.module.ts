@@ -12,6 +12,8 @@ import { SignupComponent } from './signup/signup.component';
 import { MembersComponent } from './members/members.component';
 
 import { SharedModule } from '../shared/shared.module';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 
 
@@ -22,7 +24,9 @@ import { SharedModule } from '../shared/shared.module';
     RouterModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ]
 })
 export class AuthModule { }
