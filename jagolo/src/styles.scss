@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import './scss/index';
+
+*{
+  box-sizing: border-box;
+}
+html {
+  font-family: $font-family;
+  background: $primary-dark-color;
+  color: $primary-light-color;
+}
+body {
+  margin: 0;
+  padding: 0;
+  transition: all .5s;
+}
+li {
+        list-style-type: none;
+
+    }
+a {
+    text-decoration: none;
+    color: $link-color;
+    &:hover, &:active {
+      color: $link-color-hover;
+    }
+}
+

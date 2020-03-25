@@ -1,27 +1,29 @@
-<header>
-    <ul class="page">
-        <li class="page__item">
-            <a routerLink="/home">Home</a>
-        </li>
-        <li *ngIf="isLogged" class="page__item">
-            <a routerLink="/members">Private</a>
-        </li>
-        <li *ngIf="isLogged" class="page__item">
-            <a routerLink="/bible">Bibel</a>
-        </li>
-    </ul>
-    <ul class="login">
-        <li *ngIf="!isLogged" class="login__item">
-            <a routerLink="/login">Login</a>
-        </li>
-        <li *ngIf="!isLogged" class="login__item">
-            <a routerLink="/email">Anmelden</a>
-        </li>
-        <li *ngIf="isLogged" class="login__item">
-            <a routerLink="/login" (click)="logout()">Logout</a>
-        </li>
-        <li *ngIf="isLogged" class="login__item">
-            <span>{{ user }}</span>
-        </li>
-    </ul>
-</header>
+<div class="container">
+    <header>
+        <ul class="page">
+            <li class="page__item">
+                <a routerLink="/home">Home</a>
+            </li>
+            <li *ngIf="isLogged" class="page__item">
+                <a routerLink="/members">Private</a>
+            </li>
+            <li *ngIf="isLogged" class="page__item">
+                <a routerLink="/bible">Bibel</a>
+            </li>
+        </ul>
+        <ul class="login">
+            <li *ngIf="!isLogged" class="login__item">
+                <a routerLink="/login">Login</a>
+            </li>
+            <li *ngIf="!isLogged" class="login__item">
+                <a routerLink="/email">Anmelden</a>
+            </li>
+            <li *ngIf="isLogged" class="login__item">
+                <a routerLink="/login" (click)="logout()">Logout</a>
+            </li>
+            <li *ngIf="isLogged" class="login__item">
+                <span>{{ user }}</span>
+            </li>
+        </ul>
+    </header>
+</div>
