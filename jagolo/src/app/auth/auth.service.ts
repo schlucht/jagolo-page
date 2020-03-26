@@ -3,15 +3,14 @@ import { User } from './model/user';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
+
 import { AuthError } from './model/authError';
 import { UserService } from './user.service';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    isAuthenticated = false;
-    authChange = new Subject<boolean>();
-    loggedUser = new Subject<string>();
     errorMessage = new Subject<AuthError>();
+
     constructor(
         private afAuth: AngularFireAuth,
         private db: AngularFirestore,
@@ -23,7 +22,6 @@ export class AuthService {
             .createUserWithEmailAndPassword(user.email, user.password)
             .then(userCredential => {
                 user.role = 'user';
-
                 userCredential.user.updateProfile({
                     displayName: user.firstname + ' ' + user.lastname
                 });
@@ -41,7 +39,7 @@ export class AuthService {
     loginUser(user: User) {
         this.afAuth.auth
             .signInWithEmailAndPassword(user.email, user.password)
-            .then(userLogin => {
+            .then(() => {
                 this.authSuccessfully();
             })
             .catch((err: AuthError) => {
@@ -49,23 +47,35 @@ export class AuthService {
             });
     }
     authSuccessfully() {
-        this.isAuthenticated = true;
         this.router.navigate(['/home']);
-        this.authChange.next(true);
-        this.loggedUser.next(this.afAuth.auth.currentUser.displayName);
     }
     logout() {
         this.afAuth.auth.signOut().then(log => {
             this.router.navigate(['/home']);
-            this.authChange.next(false);
-            this.loggedUser.next('');
-            this.isAuthenticated = false;
         });
     }
-    isLogged() {
-        return this.afAuth.auth.currentUser;
+
+    loggedUser(): Observable<string> {
+        const name = new Subject<string>();
+        this.afAuth.auth.onAuthStateChanged(user => {
+            if (user) {
+                name.next(user.displayName);
+            } else {
+                name.next('');
+            }
+        });
+        return name.asObservable();
     }
-    isAuth(): boolean {
-        return this.isAuthenticated;
+
+    isAuth(): Observable<boolean> {
+        const state = new Subject<boolean>();
+        this.afAuth.auth.onAuthStateChanged(user => {
+            if (user) {
+                state.next(true);
+            } else {
+                state.next(false);
+            }
+        });
+        return state.asObservable();
     }
 }
