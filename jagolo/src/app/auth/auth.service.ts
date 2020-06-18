@@ -11,42 +11,14 @@ import { UserService } from './user.service';
 export class AuthService {
     errorMessage = new Subject<AuthError>();
 
-    constructor(
-        private afAuth: AngularFireAuth,
-        private db: AngularFirestore,
-        private router: Router,
-        private userDB: UserService
-    ) {}
-    createUser(user: User) {
-        this.afAuth.auth
-            .createUserWithEmailAndPassword(user.email, user.password)
-            .then(userCredential => {
-                user.role = 'user';
-                userCredential.user.updateProfile({
-                    displayName: user.firstname + ' ' + user.lastname
-                });
-                this.userDB
-                    .createUser(userCredential.user.uid, user)
-                    .then(data => {
-                        console.log(data);
-                    });
-                this.authSuccessfully();
-            })
-            .catch((err: AuthError) => {
-                this.errorMessage.next(err);
-            });
-    }
+    constructor(private router: Router, private userDB: UserService) {}
+    createUser(user: User) {}
     loginUser(user: User) {
-        this.afAuth.auth
-            .signInWithEmailAndPassword(user.email, user.password)
-            .then(() => {
-                this.authSuccessfully();
-            })
-            .catch((err: AuthError) => {
-                this.errorMessage.next(err);
-            });
+        this.userDB
+            .confirmUser('lothar', 'schlucht')
+            .subscribe((next) => console.log(next));
     }
-    authSuccessfully() {
+    /*authSuccessfully() {
         this.router.navigate(['/home']);
     }
     logout() {
@@ -66,16 +38,16 @@ export class AuthService {
         });
         return name.asObservable();
     }
-
+*/
     isAuth(): Observable<boolean> {
         const state = new Subject<boolean>();
-        this.afAuth.auth.onAuthStateChanged(user => {
+        /*this.afAuth.auth.onAuthStateChanged(user => {
             if (user) {
                 state.next(true);
             } else {
                 state.next(false);
             }
-        });
+        });*/
         return state.asObservable();
     }
 }

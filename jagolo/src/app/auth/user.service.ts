@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { ConfigService } from '../shared/config.service';
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class UserService {
     errorMessage = new Subject<any>();
@@ -14,18 +14,23 @@ export class UserService {
     constructor(private http: HttpClient, private config: ConfigService) {}
 
     createUser(id: string, user: User) {
-        return this.http
-            .post(`${this.config.getAPI()}user/${id}`
-            ,{
-                email: user.email,
-                firstname: user.firstname,
-                lastname: user.lastname,
-                role: user.role
-            })
-            
+        return this.http.post(`${this.config.getAPI()}user/`, {
+            email: user.email,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            role: user.role,
+        });
+    }
+    confirmUser(username: string, password: string): Observable<User> {
+        return this.http.post<User>(
+            this.config.getAPI() + 'user/confirm.user.php',
+            {
+                name: username,
+                pw: password,
+            }
+        );
     }
     getUsers(): Observable<User[]> {
-        return this.http.get<User[]>(`${this.config.getAPI()}user/`);          
-            
+        return this.http.get<User[]>(`${this.config.getAPI()}user/`);
     }
 }
