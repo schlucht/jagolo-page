@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 
-import { AngularFireModule } from '@angular/fire';
+
 import { AuthModule } from './auth/auth.module';
 import { BibleRoutingModule } from './bible/bible-routing.module';
 import { BibleModule } from './bible/bible.module';
@@ -26,7 +27,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
   ],
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    HttpClientModule,
     AuthRoutingModule,
     BibleRoutingModule,
     AppRoutingModule,
