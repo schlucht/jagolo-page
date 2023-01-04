@@ -2,7 +2,7 @@
 
   header("Access-Control-Allow-Origin: *");
   header("Access-Control-Allow-Headers: Origin, X-Requested-With Content-Type");
-    $DB_HOST = 'db51.hostpark.net';
+    $DB_HOST = 'localhost';
     $DB_USER = 'schmidschluch2';
     $DB_PASS = 'jagolo';
     $DB_NAME = 'schmidschluch2';
